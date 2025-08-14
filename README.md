@@ -2,7 +2,7 @@
 
 **CleverDesk** is a modern full-stack ASP.NET Core MVC web application that helps users manage notes, track tasks, and chat with a **Gemini 2.5 Pro AI assistant** — all in one intuitive interface.  
 
-Built in just 4 days with precision and passion.
+Built in just **4 days** with precision and passion.
 
 ---
 
@@ -34,14 +34,13 @@ Built in just 4 days with precision and passion.
 - **Frontend:** Razor Views, Bootstrap 5, HTML/CSS  
 - **Backend:** ASP.NET Core MVC (.NET 8+)  
 - **Database:** Entity Framework Core + SQL Server  
-- **AI API:** Google Gemini 2.5 flash via REST API integration  
+- **AI API:** Google Gemini 2.5 Flash via REST API integration  
 - **Security:** Identity-based Authentication, Claims for UserId  
 - **Deployment Ready:** Clean architecture and async DB calls  
 
 ---
 
 ## 🔁 App Flow
-
 1. **User Registration/Login** – Users create an account and securely log in.  
 2. **Home Dashboard** – Navigate between Notes, Tasks, and AI Assistant modules.  
 3. **Notes Module** – Create notebooks → Add notes inside → Assign cover image → Organized per user.  
@@ -65,10 +64,50 @@ Built in just 4 days with precision and passion.
    ```bash
    git clone https://github.com/yourusername/CleverDesk.git
    cd CleverDesk
-2. **Set up connection string and api key**
--Add your sql server in appsettings.json and api key in GeminiService.cs
-3. **Add migrations**
- ```bash
-   add-migration initialcreation
-   update-database
-4. **Run**
+Configure the application
+
+Open appsettings.json and update the ConnectionStrings section with your SQL Server or LocalDB connection string.
+
+Add your Gemini API key in GeminiService.cs (or use appsettings.json + IConfiguration for better security).
+
+Apply database migrations
+
+bash
+Copy
+Edit
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+Run the project
+
+bash
+Copy
+Edit
+dotnet run
+The app will be available at:
+
+https://localhost:5001
+
+http://localhost:5000
+
+Enjoy CleverDesk!
+Organize your tasks, manage your notes, and chat with your AI assistant.
+
+📂 Sample appsettings.json
+json
+Copy
+Edit
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=CleverDeskDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "GeminiApiKey": "YOUR_API_KEY_HERE",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+📜 License
+This project is licensed under the MIT License - see the LICENSE file for details.
