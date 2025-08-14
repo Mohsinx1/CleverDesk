@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "_LoginLayout";
+}
+
+<div class="d-flex align-items-center justify-content-center min-vh-90 bg-light">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4 text-primary">Create Your Account 📝</h3>
+
+        <form method="post" novalidate autocomplete="off">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input name="username" class="form-control" required placeholder="Choose a username" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input name="password" type="password" class="form-control" required placeholder="Choose a password" />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+
+        <p class="text-center mt-3 mb-0">
+            <small>
+                Already have an account?
+                <a href="@Url.Action("Login", "Account")" class="text-decoration-none">Login here</a>
+            </small>
+        </p>
+    </div>
+</div>

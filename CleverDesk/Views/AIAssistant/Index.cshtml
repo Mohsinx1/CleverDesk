@@ -1,0 +1,160 @@
+﻿@model List<CleverDesk.Models.ChatMessage>
+
+@{
+    ViewData["Title"] = "AI Assistant";
+}
+<style>
+    .ai-response table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .ai-response th, .ai-response td {
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+
+    .ai-response th {
+        background-color: #f5f5f5;
+    }
+
+    .ai-response h3 {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    .ai-response p {
+        margin: 0.5rem 0;
+    }
+
+    #ai-loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+
+    .loader-box {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+</style>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    thead {
+        background-color: #f5f5f5;
+    }
+
+    pre {
+        background: #f8f8f8;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">AI Assistant</h2>
+
+    <div class="border p-3 rounded bg-light mb-4" style="height: 400px; overflow-y: auto;">
+        @foreach (var message in Model)
+        {
+            <div class="mb-2">
+                <strong class="text-@(message.Role == "User" ? "dark" : "success")">
+                    @(message.Role == "User" ? "You" : "AI"):
+                </strong>
+                <span>
+                    <div class="ai-response">
+                        @Html.Raw(Markdown.ToHtml(message.Message))
+                    </div>
+                </span>
+            </div>
+        }
+    </div>
+    <form id="chat-form" class="d-flex">
+        <input id="message-input" class="form-control me-2" placeholder="Ask something..." autocomplete="off" required />
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("chat-form");
+            const input = document.getElementById("message-input");
+            const chatBox = document.querySelector(".border.p-3"); // where messages appear
+            const loader = document.getElementById("ai-loader-overlay");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const userMessage = input.value.trim();
+                if (!userMessage) return;
+
+                // Show loader
+        loader.style.display = "flex";
+
+                fetch("/AIAssistant/SendMessageAjax", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]')?.value
+                    },
+                    body: JSON.stringify(userMessage)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+            loader.style.display = "none"; 
+
+                        const userHtml = `<div class="mb-2">
+                            <strong class="text-dark">You:</strong>
+                            <span>${data.user}</span>
+                        </div>`;
+                        const aiHtml = `<div class="mb-2">
+                            <strong class="text-success">AI:</strong>
+                            <span>${data.ai}</span>
+                        </div>`;
+
+                        chatBox.insertAdjacentHTML("beforeend", userHtml + aiHtml);
+                        input.value = "";
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    })
+                    .catch(err => {
+                        loader.style.display = "none";
+                        alert("Error sending message to AI.");
+                        console.error(err);
+                    });
+            });
+        });
+    </script>
+
+
+</div>
+<div id="ai-loader-overlay" style="display: none;">
+    <div class="loader-box text-center text-muted">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div><small>Gemini is thinking...</small></div>
+    </div>
+</div>

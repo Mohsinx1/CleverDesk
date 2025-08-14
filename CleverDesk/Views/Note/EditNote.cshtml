@@ -1,0 +1,26 @@
+﻿@model CleverDesk.Models.Note
+
+@{
+    ViewData["Title"] = "Edit Note";
+}
+
+<div class="container mt-4">
+    <h3 class="text-center text-primary mb-4">Edit Note in @Model.Notebook?.Title</h3>
+
+    <form asp-action="CreateNote" method="post">
+        <input type="hidden" asp-for="NotebookId" />
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Content" class="form-label"></label>
+            <textarea asp-for="Content" class="form-control" rows="8" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Note</button>
+    </form>
+</div>

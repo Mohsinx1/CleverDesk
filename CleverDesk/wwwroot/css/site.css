@@ -1,0 +1,56 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    padding-top: 90px; 
+}
+
+.navbar .nav-link {
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+    .navbar .nav-link:hover {
+        background-color: #e9ecef;
+    }
+
+
+.rainbow-text {
+    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowMove 6s linear infinite;
+    font-weight: bold;
+}
+
+@keyframes rainbowMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

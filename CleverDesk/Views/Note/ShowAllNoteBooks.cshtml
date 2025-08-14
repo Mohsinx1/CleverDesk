@@ -1,0 +1,73 @@
+﻿@model IEnumerable<CleverDesk.Models.Notebook>
+@{
+    TempData["Title"] = "My Notebooks";
+}
+
+<div class="container mt-1 pt-4">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Your Notebooks</h2>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="col">
+            <div class="card h-100 text-center border border-primary shadow-sm rounded-4 cursor-pointer"
+                 data-bs-toggle="modal" data-bs-target="#createNotebookModal">                
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <div class="display-3 text-primary">+</div>
+                    <p class="mt-2 fw-bold text-primary">New Notebook</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="createNotebookModal" tabindex="-1" aria-labelledby="createNotebookLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createNotebookLabel">Create New Notebook</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form asp-action="CreateNoteBook" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="Title" class="form-label">Notebook Title</label>
+                                <input type="text" name="Title" class="form-control" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="CoverImage" class="form-label">Cover Image</label>
+                                <input type="file" name="CoverImage" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var notebook in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm rounded-4 border-0">
+                        @if (!string.IsNullOrEmpty(notebook.CoverImageUrl))
+                        {
+                            <img src="@notebook.CoverImageUrl" class="card-img-top rounded-top-4" alt="Notebook Cover">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@notebook.Title</h5>
+                            <a href="@Url.Action("NoteBookDetails", "Note", new { notebookId = notebook.Id })" class="btn btn-sm btn-outline-primary mt-2">Open</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center text-muted">
+                <p>You don't have any notebooks yet. Click the <strong>New Notebook</strong> card to create one!</p>
+            </div>
+        }
+
+    </div>
+</div>

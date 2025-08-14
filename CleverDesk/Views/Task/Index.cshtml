@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CleverDesk.Models.TaskItem>
+@{
+    ViewBag.Title = "Task List";
+    Layout = "_Layout"; 
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-80">
+    <div class="card shadow p-4 w-100" style="max-width: 900px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-primary mb-0">📝 Your Tasks</h2>
+            <a href="/Task/Create" class="btn btn-success">➕ New Task</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle" id="taskTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Mark Done</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>
+                                @if (item.IsCompleted)
+                                {
+                                    <span class="badge bg-success">✅ Done</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">❌ Pending</span>
+                                }
+                            </td>
+                            <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       @(item.IsCompleted ? "checked" : "")
+                                       onchange="toggleStatus(@item.Id, this.checked)" />
+                            </td>
+                            <td class="text-center">
+                                <a href="/Task/Edit/@item.Id" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+                                <a href="/Task/Delete/@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let table = new DataTable('#taskTable');
+
+        function toggleStatus(taskId, isCompleted) {
+            $.ajax({
+                url: '/Task/ToggleStatus',
+                type: 'POST',
+                data: { id: taskId, completed: isCompleted },
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert("❌ Failed to update status");
+                }
+            });
+        }
+    </script>
+}

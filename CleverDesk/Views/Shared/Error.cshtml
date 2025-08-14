@@ -1,0 +1,27 @@
+﻿@model ErrorViewModel
+@{
+    TempData["Title"] = "Error";
+    Layout = "_LoginLayout";
+}
+
+<section class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-lg p-4 rounded" style="max-width: 600px; width: 100%;">
+        <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#dc3545" class="bi bi-exclamation-triangle mb-3" viewBox="0 0 16 16">
+                <path d="M7.938 2.016a.13.13 0 0 1 .122 0l6.857 11.856c.06.104.083.23.066.35a.513.513 0 0 1-.196.33.5.5 0 0 1-.328.122H1.541a.5.5 0 0 1-.41-.752L7.938 2.016zM8 4.992a.905.905 0 0 0-.9.9v3.6a.9.9 0 1 0 1.8 0v-3.6a.905.905 0 0 0-.9-.9zm.002 7a1.001 1.001 0 1 0 0 2.002 1.001 1.001 0 0 0 0-2.002z" />
+            </svg>
+
+            <h2 class="text-danger mb-2">Something went wrong</h2>
+            <p class="text-muted mb-4">An unexpected error occurred. We're working on it!</p>
+
+            @if (Model.ShowRequestId)
+            {
+                <p class="small text-secondary mb-2">
+                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                </p>
+            }
+
+            <a href="/" class="btn btn-outline-primary">Go Back Home</a>
+        </div>
+    </div>
+</section>

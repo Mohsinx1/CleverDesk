@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleverDesk", "CleverDesk\CleverDesk.csproj", "{CF55C28A-FD53-42E3-A1FF-C5A9D32D3BAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF55C28A-FD53-42E3-A1FF-C5A9D32D3BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF55C28A-FD53-42E3-A1FF-C5A9D32D3BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF55C28A-FD53-42E3-A1FF-C5A9D32D3BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF55C28A-FD53-42E3-A1FF-C5A9D32D3BAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18E6848D-5443-4C8D-9500-6D62D78ACE36}
+	EndGlobalSection
+EndGlobal

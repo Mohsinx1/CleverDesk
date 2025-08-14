@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <title>@TempData["Title"] CleverDesk</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CleverDesk.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https:////cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md bg-white border rounded-pill shadow-sm px-4 py-2 mx-auto mt-3 fixed-top" style="max-width: 800px; z-index: 1030;">
+            @using System.Security.Claims
+            @{
+                var userName = User.Identity.IsAuthenticated
+                ? User.FindFirst(ClaimTypes.Name)?.Value
+                : null;
+            }
+
+            <div class="container-fluid">
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand fw-bold text-primary me-3" asp-controller="Task" asp-action="Index">
+                        CleverDesk
+                    </a>
+                    <ul class="navbar-nav flex-row">
+                        <li class="nav-item me-3">
+                            <a class="nav-link" asp-controller="Note" asp-action="ShowAllNoteBooks">Notes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link rainbow-text" asp-controller="AIAssistant" asp-action="Index">Chat AI</a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarRight"
+                        aria-controls="navbarRight" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarRight">
+                    <ul class="navbar-nav align-items-center">
+                        @if (!string.IsNullOrEmpty(userName))
+                        {
+                            <li class="nav-item me-3">
+                                <span class=" text-dark">Hi, @userName</span>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-flex">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            &copy; 2025 - CleverDesk
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<script>
+    function showToast(type, message) {
+        iziToast[type]({
+            title: type.charAt(0).toUpperCase() + type.slice(1),
+            message: message,
+            position: 'topRight',
+            timeout: 4000
+        });
+    }
+
+    @if (TempData["ToastType"] != null && TempData["ToastMessage"] != null)
+    {
+                            <text>
+                                    showToast('@TempData["ToastType"]', '@TempData["ToastMessage"]');
+                            </text>
+    }
+</script>

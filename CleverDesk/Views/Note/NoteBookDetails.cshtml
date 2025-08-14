@@ -1,0 +1,50 @@
+﻿@model CleverDesk.Models.Notebook
+
+@{
+    ViewData["Title"] = "Notebook: " + Model.Title;
+}
+
+<div class="container mt-1 pt-4">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Notes of @Model.Title</h2>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+        <!-- Add New Note Card -->
+        <div class="col">
+            <div class="card h-100 text-center border border-primary shadow-sm rounded-4 cursor-pointer"
+                 onclick="window.location.href='@Url.Action("CreateNote", "Note", new { notebookId = Model.Id, noteBookTitle = Model.Title })'">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <div class="display-3 text-primary">+</div>
+                    <p class="mt-2 fw-bold text-primary">New Note</p>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Notes != null && Model.Notes.Any())
+        {
+            foreach (var note in Model.Notes)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm rounded-4 border-0">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">@note.Title</h5>
+                            <a href="@Url.Action("NoteDetails", "Note", new { id = note.Id, noteBookTitle = Model.Title })" class="btn btn-sm btn-outline-primary mt-2">Open</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center text-muted">
+                <p>This notebook is empty. Click <strong>New Note</strong> to get started.</p>
+            </div>
+        }
+      
+    </div>
+    <div class="mt-4 text-end">
+        <a href="@Url.Action("ShowAllNoteBooks", "Note")" class="btn btn-primary">Back to Notebooks</a>
+    </div>
+</div>
