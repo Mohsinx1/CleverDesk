@@ -68,45 +68,22 @@ Built in just **4 days** with precision and passion.
 
 2. **Configure the application**
    - Open `appsettings.json` and update the `ConnectionStrings` section with your SQL Server or LocalDB connection string.  
-   - Add your Gemini API key in `GeminiService.cs` (or use `appsettings.json` + `IConfiguration` for better security).  
+   - Add your Gemini API key in `GeminiService.cs`.  
 
 3. **Apply database migrations**
    ```bash
-   dotnet ef migrations add InitialCreate
-   dotnet ef database update
+   add-migration InitialCreate
+   update-database 
    ```
 
 4. **Run the project**
    ```bash
-   dotnet run
+   Press F5
    ```
-   The app will be available at:  
-   - https://localhost:5001  
-   - http://localhost:5000  
 
 5. **Enjoy CleverDesk!**  
-   Organize your tasks, manage your notes, and chat with your AI assistant.  
-
----
-
-## 📂 Sample `appsettings.json`
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=CleverDeskDB;Trusted_Connection=True;MultipleActiveResultSets=true"
-  },
-  "GeminiApiKey": "YOUR_API_KEY_HERE",
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*"
-}
-```
-
+   Organize your tasks, manage your notes, and chat with your AI assistant.
+   
 ---
 
 ## 📜 License
