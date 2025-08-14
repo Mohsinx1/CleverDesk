@@ -64,38 +64,34 @@ Built in just **4 days** with precision and passion.
    ```bash
    git clone https://github.com/yourusername/CleverDesk.git
    cd CleverDesk
-Configure the application
+   ```
 
-Open appsettings.json and update the ConnectionStrings section with your SQL Server or LocalDB connection string.
+2. **Configure the application**
+   - Open `appsettings.json` and update the `ConnectionStrings` section with your SQL Server or LocalDB connection string.  
+   - Add your Gemini API key in `GeminiService.cs` (or use `appsettings.json` + `IConfiguration` for better security).  
 
-Add your Gemini API key in GeminiService.cs (or use appsettings.json + IConfiguration for better security).
+3. **Apply database migrations**
+   ```bash
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
 
-Apply database migrations
+4. **Run the project**
+   ```bash
+   dotnet run
+   ```
+   The app will be available at:  
+   - https://localhost:5001  
+   - http://localhost:5000  
 
-bash
-Copy
-Edit
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-Run the project
+5. **Enjoy CleverDesk!**  
+   Organize your tasks, manage your notes, and chat with your AI assistant.  
 
-bash
-Copy
-Edit
-dotnet run
-The app will be available at:
+---
 
-https://localhost:5001
+## 📂 Sample `appsettings.json`
 
-http://localhost:5000
-
-Enjoy CleverDesk!
-Organize your tasks, manage your notes, and chat with your AI assistant.
-
-📂 Sample appsettings.json
-json
-Copy
-Edit
+```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=CleverDeskDB;Trusted_Connection=True;MultipleActiveResultSets=true"
@@ -109,5 +105,9 @@ Edit
   },
   "AllowedHosts": "*"
 }
-📜 License
+```
+
+---
+
+## 📜 License
 This project is licensed under the MIT License - see the LICENSE file for details.
