@@ -32,9 +32,9 @@ Built in just 4 days with precision and passion.
 
 ## 🧑‍💻 Tech Stack
 - **Frontend:** Razor Views, Bootstrap 5, HTML/CSS  
-- **Backend:** ASP.NET Core MVC (.NET 7+)  
+- **Backend:** ASP.NET Core MVC (.NET 8+)  
 - **Database:** Entity Framework Core + SQL Server  
-- **AI API:** Google Gemini via REST API integration  
+- **AI API:** Google Gemini 2.5 flash via REST API integration  
 - **Security:** Identity-based Authentication, Claims for UserId  
 - **Deployment Ready:** Clean architecture and async DB calls  
 
@@ -45,7 +45,7 @@ Built in just 4 days with precision and passion.
 1. **User Registration/Login** – Users create an account and securely log in.  
 2. **Home Dashboard** – Navigate between Notes, Tasks, and AI Assistant modules.  
 3. **Notes Module** – Create notebooks → Add notes inside → Assign cover image → Organized per user.  
-4. **Tasks Module** – Add task with name, deadline, and status → Mark complete/incomplete → Track progress visually.  
+4. **Tasks Module** – Add task with name and status → Mark complete/incomplete → Track progress visually.  
 5. **AI Assistant Module** – Send message → Gemini API processes → AI reply shown in real time → Chat stored in DB.  
 
 ---
@@ -53,7 +53,7 @@ Built in just 4 days with precision and passion.
 ## 🛠️ Setup Locally
 
 ### **Prerequisites**
-- [.NET 7+ SDK](https://dotnet.microsoft.com/download)  
+- [.NET 8+ SDK](https://dotnet.microsoft.com/download)  
 - SQL Server or LocalDB installed  
 - Git installed  
 - Google Gemini API key ([Get one here](https://aistudio.google.com/app/apikey))  
@@ -65,3 +65,10 @@ Built in just 4 days with precision and passion.
    ```bash
    git clone https://github.com/yourusername/CleverDesk.git
    cd CleverDesk
+2. **Set up connection string and api key**
+-Add your sql server in appsettings.json and api key in GeminiService.cs
+3. **Add migrations**
+ ```bash
+   add-migration initialcreation
+   update-database
+4. **Run**
